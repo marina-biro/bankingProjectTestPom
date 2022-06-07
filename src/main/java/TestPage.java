@@ -13,6 +13,8 @@ public class TestPage {
     private LoginPage loginPage;
     private BankManagerMenu bankManagerMenu;
     private AddCustomerForm addCustomerForm;
+    private CustomerLogin_CustomerName customerLogin_customerName;
+    private CustomerLogin_DepositPage customerLogin_depositPage;
 
 
     public TestPage(){
@@ -25,9 +27,11 @@ public class TestPage {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
       // this.driverWait = new WebDriverWait(this.driver, Duration.ofSeconds(15));
-       this.addCustomerForm = new AddCustomerForm(this.driver, this.driverWait);
+        this.addCustomerForm = new AddCustomerForm(this.driver, this.driverWait);
         this.loginPage = new LoginPage(this.driver, this.driverWait);
         this.bankManagerMenu = new BankManagerMenu(this.driver, this.driverWait);
+        this.customerLogin_customerName = new CustomerLogin_CustomerName(this.driver, this.driverWait);
+        this.customerLogin_depositPage = new CustomerLogin_DepositPage(this.driver, this.driverWait);
 
         driver.navigate().to("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
     }
@@ -46,16 +50,27 @@ public class TestPage {
         this.addCustomerForm.clickCreate();
         Assert.assertEquals(driver.switchTo().alert().getText().substring(0, 27), "Customer added successfully");
         driver.switchTo().alert().accept();
-
     }
 
     @Test
     public void loginAsCustomer(){
         this.loginPage.loginCustomer();
-        Assert.assertTrue(this.bankManagerMenu.yourNameLabel());
+        this.customerLogin_customerName.indentifyDropdown();
+        this.customerLogin_customerName.clickLogin();
+        Assert.assertTrue(this.customerLogin_depositPage.welcome());
     }
 
     @Test
+    public void testDepositMoney(){
+        this.loginPage.loginCustomer();
+        this.customerLogin_customerName.indentifyDropdown();
+        this.customerLogin_customerName.clickLogin();
+        this.customerLogin_depositPage.depositMoney();
+        Assert.assertEquals(customerLogin_depositPage.getBalansState(),"100");
+
+    }
+
+
 
 
 

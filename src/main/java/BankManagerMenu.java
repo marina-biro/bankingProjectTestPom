@@ -33,17 +33,5 @@ public class BankManagerMenu extends _BasePage {
 
     }
 
-    public boolean yourNameLabel(){
-    new WebDriverWait(getDriver(),  Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOfElementLocated(customerNameLabel));
-        return this.getDriver().findElement(this.customerNameLabel).isDisplayed();
-    }
-
-
-
-
-
-
-
-
 
 }
