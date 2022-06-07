@@ -30,4 +30,8 @@ public class CustomerLogin_CustomerName extends _BasePage{
         new WebDriverWait(getDriver(),  Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOfElementLocated(loginButton)).click();
     }
 
+    public boolean isCustomerLoggedOut(){
+        return this.getDriver().findElement(this.customerNameLabel).isDisplayed();
+    }
+
 }

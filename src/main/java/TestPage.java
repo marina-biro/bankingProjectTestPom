@@ -2,10 +2,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.time.Duration;
 
 public class TestPage {
     private WebDriver driver;
@@ -71,7 +70,11 @@ public class TestPage {
 
     @Test
     public void logOutCustomer(){
-
+        this.loginPage.loginCustomer();
+        this.customerLogin_customerName.indentifyDropdown();
+        this.customerLogin_customerName.clickLogin();
+        this.customerLogin_depositPage.clickLogOut();
+        Assert.assertTrue(customerLogin_customerName.isCustomerLoggedOut());
     }
 
 
@@ -112,18 +115,9 @@ public class TestPage {
         driver.switchTo().alert().accept();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @AfterClass
+    public void afterClass(){
+        driver.close();
+    }
 
 }

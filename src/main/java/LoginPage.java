@@ -27,9 +27,6 @@ public class LoginPage extends _BasePage {
         return this.getDriver().findElement(this.bankManagerButton).isDisplayed();
     }
 
-    public boolean isLogiCustomerVisible(){
-        return this.getDriver().findElement(this.customerButton).isDisplayed();
-    }
 }
 
 

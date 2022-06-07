@@ -18,6 +18,7 @@ public class CustomerLogin_DepositPage extends _BasePage{
     private By withdrawalConfirmBtn = By.xpath("/html/body/div/div/div[2]/div/div[4]/div/form/button");
     private By homeButton = By.xpath("/html/body/div/div/div[1]/button[1]");
     private By accountState = By.xpath("/html/body/div/div/div[2]/div/div[2]/strong[2]");
+    private By logOutButton = By.xpath("/html/body/div/div/div[1]/button[2]");
 
     public CustomerLogin_DepositPage(WebDriver driver, WebDriverWait driverWait){
         super(driver,driverWait);
@@ -76,5 +77,10 @@ public class CustomerLogin_DepositPage extends _BasePage{
         home.click();
     }
 
+    public void clickLogOut(){
+        new WebDriverWait(getDriver(),  Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOfElementLocated(logOutButton));
+        WebElement logOut = getDriver().findElement(logOutButton);
+        logOut.click();
+    }
 
 }
