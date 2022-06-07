@@ -15,7 +15,7 @@ public class TestPage {
     private AddCustomerForm addCustomerForm;
     private CustomerLogin_CustomerName customerLogin_customerName;
     private CustomerLogin_DepositPage customerLogin_depositPage;
-
+    private BankManager_OpenAccount bankManager_openAccount;
 
     public TestPage(){
 
@@ -32,6 +32,7 @@ public class TestPage {
         this.bankManagerMenu = new BankManagerMenu(this.driver, this.driverWait);
         this.customerLogin_customerName = new CustomerLogin_CustomerName(this.driver, this.driverWait);
         this.customerLogin_depositPage = new CustomerLogin_DepositPage(this.driver, this.driverWait);
+        this.bankManager_openAccount = new BankManager_OpenAccount(this.driver, this.driverWait);
 
         driver.navigate().to("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
     }
@@ -40,6 +41,14 @@ public class TestPage {
     public void loginAsBankManager(){
         this.loginPage.loginBankManager();
         Assert.assertTrue(this.bankManagerMenu.addCustomerBtnDisplayed());
+    }
+
+    @Test
+    public void logoutBankManager(){
+        this.loginPage.loginBankManager();
+        this.bankManagerMenu.bankManagerLogOut();
+        Assert.assertTrue(loginPage.isLoginBankManagerVisible());
+
     }
 
     @Test
@@ -61,6 +70,12 @@ public class TestPage {
     }
 
     @Test
+    public void logOutCustomer(){
+
+    }
+
+
+    @Test
     public void testDepositMoney(){
         this.loginPage.loginCustomer();
         this.customerLogin_customerName.indentifyDropdown();
@@ -69,6 +84,36 @@ public class TestPage {
         Assert.assertEquals(customerLogin_depositPage.getBalansState(),"100");
 
     }
+
+    @Test
+    public void testWithdrawMoney(){
+        this.loginPage.loginCustomer();
+        this.customerLogin_customerName.indentifyDropdown();
+        this.customerLogin_customerName.clickLogin();
+        this.customerLogin_depositPage.depositMoney();
+        this.customerLogin_depositPage.clickHomeButton();
+        this.loginPage.loginCustomer();
+        this.customerLogin_customerName.indentifyDropdown();
+        this.customerLogin_customerName.clickLogin();
+        this.customerLogin_depositPage.withdrawlBtnClick();
+        this.customerLogin_depositPage.enterWithrawalAmount();
+        this.customerLogin_depositPage.confirmWithrawalAmount();
+        Assert.assertEquals(customerLogin_depositPage.getBalansState(),"50");
+    }
+
+    @Test
+    public void bankManager_openCustomerAccount(){
+        this.loginPage.loginBankManager();
+        this.bankManagerMenu.openAccountBtnClick();
+        this.bankManager_openAccount.selectCustomer();
+        this.bankManager_openAccount.selectCurrency();
+        this.bankManager_openAccount.clickProcess();
+        Assert.assertEquals(driver.switchTo().alert().getText().substring(0, 28), "Account created successfully");
+        driver.switchTo().alert().accept();
+    }
+
+
+
 
 
 

@@ -21,10 +21,15 @@ public class LoginPage extends _BasePage {
 
     public void loginCustomer() {
         new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(customerButton)).click();
-       // this.getDriver().findElement(this.customerButton).click();
+           }
 
+    public boolean isLoginBankManagerVisible(){
+        return this.getDriver().findElement(this.bankManagerButton).isDisplayed();
     }
 
+    public boolean isLogiCustomerVisible(){
+        return this.getDriver().findElement(this.customerButton).isDisplayed();
+    }
 }
 
 
