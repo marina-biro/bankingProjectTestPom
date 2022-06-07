@@ -36,15 +36,14 @@ public class TestPage {
         driver.navigate().to("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
     }
 
-    @Test
+    @Test (priority = 1)
     public void loginAsBankManager(){
         this.loginPage.loginBankManager();
         Assert.assertTrue(this.bankManagerMenu.addCustomerBtnDisplayed());
     }
 
-    @Test
+    @Test (priority = 2)
     public void createCustomerAccount(){
-        this.loginPage.loginBankManager();
         this.bankManagerMenu.addCustomerBtnClick();
         this.addCustomerForm.populateForm("M", "B", "24000");
         this.addCustomerForm.clickCreate();
@@ -52,9 +51,8 @@ public class TestPage {
         driver.switchTo().alert().accept();
     }
 
-    @Test
+    @Test (priority = 3)
     public void bankManager_openCustomerAccount(){
-        this.loginPage.loginBankManager();
         this.bankManagerMenu.openAccountBtnClick();
         this.bankManager_openAccount.selectCustomer();
         this.bankManager_openAccount.selectCurrency();
@@ -63,7 +61,7 @@ public class TestPage {
         driver.switchTo().alert().accept();
     }
 
-    @Test
+    @Test (priority = 8)
     public void loginAsCustomer(){
         this.loginPage.loginCustomer();
         this.customerLogin_customerName.indentifyDropdown();
@@ -71,7 +69,7 @@ public class TestPage {
         Assert.assertTrue(this.customerLogin_depositPage.welcome());
     }
 
-    @Test
+    @Test (priority = 5)
     public void testDepositMoney(){
         this.loginPage.loginCustomer();
         this.customerLogin_customerName.indentifyDropdown();
@@ -81,7 +79,7 @@ public class TestPage {
 
     }
 
-    @Test
+    @Test (priority = 6)
     public void testWithdrawMoney(){
         this.loginPage.loginCustomer();
         this.customerLogin_customerName.indentifyDropdown();
@@ -98,15 +96,14 @@ public class TestPage {
     }
 
 
-    @Test
+    @Test (priority = 4)
     public void logoutBankManager(){
-        this.loginPage.loginBankManager();
         this.bankManagerMenu.bankManagerLogOut();
         Assert.assertTrue(loginPage.isLoginBankManagerVisible());
 
     }
 
-    @Test
+    @Test (priority = 8)
     public void logOutCustomer(){
         this.loginPage.loginCustomer();
         this.customerLogin_customerName.indentifyDropdown();
