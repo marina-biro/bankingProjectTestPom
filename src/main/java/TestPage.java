@@ -44,7 +44,8 @@ public class TestPage {
         this.bankManagerMenu.addCustomerBtnClick();
         this.addCustomerForm.populateForm("M", "B", "24000");
         this.addCustomerForm.clickCreate();
-        Assert.
+        Assert.assertEquals(driver.switchTo().alert().getText().substring(0, 27), "Customer added successfully");
+        driver.switchTo().alert().accept();
 
     }
 
@@ -53,6 +54,11 @@ public class TestPage {
         this.loginPage.loginCustomer();
         Assert.assertTrue(this.bankManagerMenu.yourNameLabel());
     }
+
+    @Test
+
+
+
 
 
 
