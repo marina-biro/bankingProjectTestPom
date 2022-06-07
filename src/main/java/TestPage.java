@@ -61,7 +61,7 @@ public class TestPage {
         driver.switchTo().alert().accept();
     }
 
-    @Test (priority = 8)
+    @Test (priority = 5)
     public void loginAsCustomer(){
         this.loginPage.loginCustomer();
         this.customerLogin_customerName.indentifyDropdown();
@@ -69,26 +69,15 @@ public class TestPage {
         Assert.assertTrue(this.customerLogin_depositPage.welcome());
     }
 
-    @Test (priority = 5)
+    @Test (priority = 6)
     public void testDepositMoney(){
-        this.loginPage.loginCustomer();
-        this.customerLogin_customerName.indentifyDropdown();
-        this.customerLogin_customerName.clickLogin();
         this.customerLogin_depositPage.depositMoney();
         Assert.assertEquals(customerLogin_depositPage.getBalansState(),"100");
 
     }
 
-    @Test (priority = 6)
+    @Test (priority = 7)
     public void testWithdrawMoney(){
-        this.loginPage.loginCustomer();
-        this.customerLogin_customerName.indentifyDropdown();
-        this.customerLogin_customerName.clickLogin();
-        this.customerLogin_depositPage.depositMoney();
-        this.customerLogin_depositPage.clickHomeButton();
-        this.loginPage.loginCustomer();
-        this.customerLogin_customerName.indentifyDropdown();
-        this.customerLogin_customerName.clickLogin();
         this.customerLogin_depositPage.withdrawlBtnClick();
         this.customerLogin_depositPage.enterWithrawalAmount();
         this.customerLogin_depositPage.confirmWithrawalAmount();
@@ -105,9 +94,6 @@ public class TestPage {
 
     @Test (priority = 8)
     public void logOutCustomer(){
-        this.loginPage.loginCustomer();
-        this.customerLogin_customerName.indentifyDropdown();
-        this.customerLogin_customerName.clickLogin();
         this.customerLogin_depositPage.clickLogOut();
         Assert.assertTrue(customerLogin_customerName.isCustomerLoggedOut());
     }
