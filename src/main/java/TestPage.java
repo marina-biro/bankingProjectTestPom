@@ -43,14 +43,6 @@ public class TestPage {
     }
 
     @Test
-    public void logoutBankManager(){
-        this.loginPage.loginBankManager();
-        this.bankManagerMenu.bankManagerLogOut();
-        Assert.assertTrue(loginPage.isLoginBankManagerVisible());
-
-    }
-
-    @Test
     public void createCustomerAccount(){
         this.loginPage.loginBankManager();
         this.bankManagerMenu.addCustomerBtnClick();
@@ -61,22 +53,23 @@ public class TestPage {
     }
 
     @Test
+    public void bankManager_openCustomerAccount(){
+        this.loginPage.loginBankManager();
+        this.bankManagerMenu.openAccountBtnClick();
+        this.bankManager_openAccount.selectCustomer();
+        this.bankManager_openAccount.selectCurrency();
+        this.bankManager_openAccount.clickProcess();
+        Assert.assertEquals(driver.switchTo().alert().getText().substring(0, 28), "Account created successfully");
+        driver.switchTo().alert().accept();
+    }
+
+    @Test
     public void loginAsCustomer(){
         this.loginPage.loginCustomer();
         this.customerLogin_customerName.indentifyDropdown();
         this.customerLogin_customerName.clickLogin();
         Assert.assertTrue(this.customerLogin_depositPage.welcome());
     }
-
-    @Test
-    public void logOutCustomer(){
-        this.loginPage.loginCustomer();
-        this.customerLogin_customerName.indentifyDropdown();
-        this.customerLogin_customerName.clickLogin();
-        this.customerLogin_depositPage.clickLogOut();
-        Assert.assertTrue(customerLogin_customerName.isCustomerLoggedOut());
-    }
-
 
     @Test
     public void testDepositMoney(){
@@ -104,15 +97,22 @@ public class TestPage {
         Assert.assertEquals(customerLogin_depositPage.getBalansState(),"50");
     }
 
+
     @Test
-    public void bankManager_openCustomerAccount(){
+    public void logoutBankManager(){
         this.loginPage.loginBankManager();
-        this.bankManagerMenu.openAccountBtnClick();
-        this.bankManager_openAccount.selectCustomer();
-        this.bankManager_openAccount.selectCurrency();
-        this.bankManager_openAccount.clickProcess();
-        Assert.assertEquals(driver.switchTo().alert().getText().substring(0, 28), "Account created successfully");
-        driver.switchTo().alert().accept();
+        this.bankManagerMenu.bankManagerLogOut();
+        Assert.assertTrue(loginPage.isLoginBankManagerVisible());
+
+    }
+
+    @Test
+    public void logOutCustomer(){
+        this.loginPage.loginCustomer();
+        this.customerLogin_customerName.indentifyDropdown();
+        this.customerLogin_customerName.clickLogin();
+        this.customerLogin_depositPage.clickLogOut();
+        Assert.assertTrue(customerLogin_customerName.isCustomerLoggedOut());
     }
 
     @AfterClass
